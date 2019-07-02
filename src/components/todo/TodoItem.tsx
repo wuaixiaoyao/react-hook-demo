@@ -13,7 +13,6 @@ export default function TodoItem({ index }: { index: number }) {
         index
     ]);
     const todo = useMappedState(mapState);
-
     const dispatch = useDispatch();
     const deleteTodo = useCallback(
         () => dispatch({ type: "delete todo", index }),
