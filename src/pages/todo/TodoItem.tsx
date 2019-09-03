@@ -5,6 +5,7 @@
 */
 import { css } from "emotion";
 import * as React from "react";
+import { Button} from 'antd-mobile';
 import { useDispatch, useMappedState } from "redux-react-hook";
 import { IState } from "../../store/store";
 const {useCallback} = React;
@@ -13,7 +14,6 @@ export default function TodoItem({ index }: { index: number }) {
         index
     ]);
     const todo = useMappedState(mapState);
-
     const dispatch = useDispatch();
     const deleteTodo = useCallback(
         () => dispatch({ type: "delete todo", index }),
@@ -23,7 +23,7 @@ export default function TodoItem({ index }: { index: number }) {
     return (
         <li className={styles.root}>
             <span>{todo}</span>
-            <button onClick={deleteTodo}>删除</button>
+            <Button type = "primary" onClick={deleteTodo} size = "small">删除</Button>
         </li>
     );
 }
