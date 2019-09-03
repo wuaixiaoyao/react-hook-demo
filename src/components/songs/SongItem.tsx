@@ -1,7 +1,7 @@
 import * as React from "react";
-import  axios from 'axios';
+import {Toast} from 'antd-mobile';
 import styles from './index.module.scss';
-
+import {getHotList} from '../../api'
 const { useEffect ,useState } = React;
 interface songItem  {
     first:string,
@@ -16,11 +16,11 @@ export default function SongView (){
        request()
     },[]);
     const request = () => {
-        axios.get('http://localhost:3888/search/hot').then(res => {
-            let data = res.data;
-            setSongsList(data.result.hots)
-        },err => {
-            throw new Error('请求失败')
+        Toast.loading('加载中...')
+        getHotList({}).then((res: any) => {
+            let data = res.result;
+            setSongsList(data.hots)
+            Toast.hide()
         })
     }
     return <div>

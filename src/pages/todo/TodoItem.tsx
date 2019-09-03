@@ -23,9 +23,7 @@ export default function TodoItem({ index }: { index: number }) {
     return (
         <li className={styles.root}>
             <span>{todo}</span>
-            <button onClick={deleteTodo}>删除</button>
-            <Button>删除</Button>
-
+            <Button type = "primary" onClick={deleteTodo} size = "small">删除</Button>
         </li>
     );
 }

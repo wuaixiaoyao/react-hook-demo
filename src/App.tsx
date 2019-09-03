@@ -1,16 +1,12 @@
 import {css} from 'emotion';
 import * as React from 'react';
-import {BrowserRouter as Router, Switch, Route, NavLink, Link} from 'react-router-dom'
+import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom'
 import Index from './pages/index/in'
 import Todo from './pages/todo';
+import Users from './pages/user';
 import Song from "./components/songs/SongItem";
-import BaseModal from "./components/baseModal/index"
 import stylesName from './index.style.module.scss';
 
-
-function Users() {
-    return <h2>Users</h2>;
-}
 export default function App() {
     return <div className={styles.root}>
         <Router>
@@ -31,7 +27,6 @@ export default function App() {
                         </li>
                     </ul>
                 </nav>
-
                 <Route path="/" exact component={Index} />
                 <Route path="/todo" component={Todo} />
                 <Route path="/users/" component={Users} />
@@ -39,7 +34,7 @@ export default function App() {
 
             </div>
         </Router>
-        {/* <BaseModal modalVisible = {true}/> */}
+
     </div>
 }
 

@@ -25,7 +25,7 @@ export default function TodoList() {
                     .map((_, index) => <TodoItem index={index} key={index} />)}
             </ul>
             <div className={styles.lastUpdated}>
-                Last updated: {lastUpdated ? new Date(lastUpdated).toString() : "never"}
+                最近更新时间: {lastUpdated ? new Date(lastUpdated).toString() : "never"}
             </div>
         </div>
     );

@@ -84,6 +84,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "tslint": "^5.19.0",
     "typescript": "^3.5.2"
   },
   "jest": {

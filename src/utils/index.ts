@@ -3,6 +3,12 @@
  * @date 2019/8/29
  * @Description:
 */
+import Http from './request';
+export const http = new Http('/api');
+
+
+
+
 function configurable(value: boolean) {
     return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
         descriptor.configurable = value;
@@ -24,7 +30,7 @@ class Point {
 }
 console.log("point",new Point(1,2))
 
-const getStringLength = (string:string) => {
+const getStringLength = (string:string):number => {
     let len = 0;
     for (let  i = 0; i < string.length; i++) {
         if (string[i].match(/[^\x00-\xff]/ig) !== null) //全角
@@ -34,3 +40,4 @@ const getStringLength = (string:string) => {
     }
     return len;
 }
+console.log(getStringLength('常见'),'长度')
