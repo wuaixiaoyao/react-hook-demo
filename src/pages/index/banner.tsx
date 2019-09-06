@@ -17,13 +17,12 @@ export default function Banner () {
     useEffect( () => {
         getList()
     },[]);
-    const getList = () => {
+    const getList = async () => {
         Toast.loading('加载中...')
-        getBannerList({type:2}).then((res:any) => {
-            let {banners:bannerList} = res;
-            setBannerList(bannerList);
-            Toast.hide()
-        })
+        let res = await getBannerList({type:2});
+        let {banners:bannerList} = res;
+        setBannerList(bannerList);
+        Toast.hide()
     }
     return <div>
         {bannerList.map((item:bannerItem,index:number) =>{

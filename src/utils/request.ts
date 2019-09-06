@@ -5,41 +5,45 @@
 */
 import Axios from 'axios';
 import { Toast } from 'antd-mobile';
+import * as NProgress from 'nprogress';
 const axios = Axios.create();
 axios.defaults.headers.get['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 type res = {
     code:number,
-    result:any
+    result?:any
 }
 type httpRes =  {
     data:{
         code:number,
-        result:any
+        result?:any
     },
 }
 axios.interceptors.request.use( (config: object):any => {
-
+    NProgress.start();
     return config
 }, (err: object) => {
-    Toast.offline('网络请求超时')
+    NProgress.done();
+    Toast.offline('网络请求超时');
 });
 //响应拦截器
 axios.interceptors.response.use((response:httpRes):any => {
     if(response && response.data){
         let {code} = response.data;
         if( code === 200){
+            NProgress.done();
             return response
         }
     }
 },((error:object) => {
+    NProgress.done();
     return Promise.reject(error)
 }))
 
 
 
 class  Http{
-    context:string;
+    context:string;//这里声明的变量，是实例上的属性
     constructor(context:string){
         // 数据请求增加一个命名空间
         this.context = context;
