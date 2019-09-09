@@ -54,17 +54,15 @@ class  Http{
     post(api:string,params:object){
         return axios.post(`${this.context}${api}`,params).then(res  => res.data)
     }
-    // put(api:string,id:string,params:object){
-    //     return axios.put(`${this.context}${api}/${id}`, params).then(res => res.result)
-    // }
-    //
-    // delete(api:string,params:object){
-    //     return axios.delete(`${this.context}${api}`, {params}).then(res => res.result);
-    // }
-    // patch(api:string,id:string,params:object){
-    //     return axios.patch(`${this.context}${api}/${id}`,params).then(res => res.result);
-    // }
-
+    put(api:string,id:string,params:object){
+        return axios.put(`${this.context}${api}/${id}`, params).then(res => res.data)
+    }
+    delete(api:string,params:object){
+        return axios.delete(`${this.context}${api}`, {params}).then(res => res.data);
+    }
+    patch(api:string,id:string,params:object){
+        return axios.patch(`${this.context}${api}/${id}`,params).then(res => res.data);
+    }
 }
 export default Http
 

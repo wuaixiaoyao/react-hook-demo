@@ -11,6 +11,13 @@ export const getBannerList = (params:object) => {
     return http.get('/banner',params)
 }
 
+export const getCode = (params:object) => {
+    return http.get('/captcha/sent',params)
+}
+export const pwdLogin = (params:object) => {
+    //密码登录
+    return http.get('/login/cellphone',params)
+}
 
 
 

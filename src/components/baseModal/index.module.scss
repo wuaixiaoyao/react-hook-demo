@@ -1,4 +1,7 @@
 .base_modal_wrapper{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   position: fixed;
   z-index:2000;
   width:100%;
@@ -6,4 +9,12 @@
   top:0;
   left:0;
   background:rgba(0,0,0,0.5);
+  .base_modal_content{
+    width: 100%;
+    padding: 20px;
+  }
+  .footer_wrapper{
+    display: flex;
+    align-items: flex-end;
+  }
 }

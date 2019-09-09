@@ -4,7 +4,8 @@ const { useEffect ,useCallback} = React;
 import styles from './index.module.scss';
 const {useState} = React;
 type modalProps = {
-    modalVisible:boolean
+    modalVisible:boolean,
+    children?:any
 }
 export default function BaseModal(props: modalProps){
     const [visible,setVisible] = useState(props.modalVisible);
@@ -22,8 +23,13 @@ export default function BaseModal(props: modalProps){
     }
     if(visible){
         return <div className={styles.base_modal_wrapper} >
-            弹窗
-            <Button type = "primary" onClick={hideModal} >取消</Button>
+            <div className={styles.base_modal_content}>
+                {props.children}
+            </div>
+            <div className = {styles.footer_wrapper}>
+                <Button type = "primary" >确定</Button>
+                <Button type = "primary" onClick={hideModal} style = {{width:60}}>取消</Button>
+            </div>
         </div>
     }else {
         return null
