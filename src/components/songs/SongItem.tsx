@@ -1,7 +1,8 @@
 import * as React from "react";
-import {Toast} from 'antd-mobile';
+import {Toast,InputItem} from 'antd-mobile';
 import styles from './index.module.scss';
 import {getHotList} from '../../api'
+import {ChangeEvent} from "react";
 const { useEffect ,useState } = React;
 interface songItem  {
     first:string,
@@ -24,6 +25,9 @@ export default function SongView (){
         })
     }
     return <div>
+        <InputItem clear placeholder="搜索歌词" >
+            输入
+        </InputItem>
         歌曲列表
         {
             songsList.map((item: songItem,index) => <p key = {index} className={styles["item-wrapper"]}>

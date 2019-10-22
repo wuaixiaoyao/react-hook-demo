@@ -4,11 +4,8 @@
  * @Description:
 */
 import Http from './request';
+let test = require('./test');
 export const http = new Http('/api');
-
-
-
-
 function configurable(value: boolean) {
     return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
         descriptor.configurable = value;

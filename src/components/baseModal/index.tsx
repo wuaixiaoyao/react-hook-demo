@@ -5,21 +5,26 @@ import styles from './index.module.scss';
 const {useState} = React;
 type modalProps = {
     modalVisible:boolean,
-    children?:any
+    children?:React.ReactNode,
+    style?: React.CSSProperties,
+    onCancelCb?: (() => void) | undefined
 }
 export default function BaseModal(props: modalProps){
-    const [visible,setVisible] = useState(props.modalVisible);
+    let { modalVisible,onCancelCb} =  props;
+    const [visible,setVisible] = useState(modalVisible);
     useCallback(() => {
 
-    },[])
+    },[modalVisible])
     useEffect(() => {
-
-    },[])
+        setVisible(modalVisible)
+    },[modalVisible])
     function showModal(){
+
       setVisible(true)
     }
     function hideModal(){
-      setVisible(false)   
+      setVisible(false);
+        onCancelCb && onCancelCb()
     }
     if(visible){
         return <div className={styles.base_modal_wrapper} >
@@ -28,7 +33,9 @@ export default function BaseModal(props: modalProps){
             </div>
             <div className = {styles.footer_wrapper}>
                 <Button type = "primary" >确定</Button>
-                <Button type = "primary" onClick={hideModal} style = {{width:60}}>取消</Button>
+                <Button type = "primary" onClick = {hideModal}
+                        style ={{width:60,marginLeft:100}}
+                >取消</Button>
             </div>
         </div>
     }else {
