@@ -9,23 +9,31 @@ export const http = new Http('/api');
 function configurable(value: boolean) {
     return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
         descriptor.configurable = value;
+        // descriptor.enumerable = true;
+        // descriptor.writable = true;
     };
 }
 class Point {
+    //私有属性
     private _x: number;
     private _y: number;
     constructor(x: number, y: number) {
         this._x = x;
         this._y = y;
     }
+    //object.defineProperty
+    @configurable(false)
+    get x() {
+        return this._x;
+    }
 
     @configurable(false)
-    get x() { return this._x; }
-
-    @configurable(false)
-    get y() { return this._y; }
+    get y() {
+        return this._y;
+    }
 }
-console.log("point",new Point(1,2))
+let pointInstance = new Point(1,2);
+console.log("point",pointInstance.x,pointInstance.y);
 
 const getStringLength = (string:string):number => {
     let len = 0;

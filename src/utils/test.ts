@@ -4,7 +4,7 @@
  * @Description: test 类测试
 */
 
-
+import { getHotList } from '../api'
 class Test {
     constructor(x:number,y:number){
         this.sum = x + y;
@@ -63,6 +63,10 @@ class SonTest extends Test {
        super.protectedFn()
        console.log('子类执行受保护方法')
    }
+   //@override()
+    protectedFn () {
+        console.log('子类执行受保护方法')
+    }
 }
 console.log('子类',SonTest);
 let sonTest1 = new SonTest(2,5)
@@ -73,3 +77,44 @@ let sonTest1 = new SonTest(2,5)
 console.log('sonTest1',sonTest1);
 sonTest1.age = 20;
 console.log(sonTest1.age,'sonTest1.age');
+
+
+
+/*-----------------------------*/
+interface IPriceData {
+    /** 标识 */
+    cbf: string
+    /** id */
+    id: string
+    /** 市场价格 */
+    m: string
+    /** 后台价 */
+    op: string
+    /** 前台价 */
+    p: string
+}
+
+// 将IPriceData塞进数组里
+type IPriceDataArray = IPriceData[]
+function getPrice () {
+    // Promise的泛型参数使用了IPriceDataArray类型，then里面返回的数据就是IPriceDataArray类型
+    return new Promise<IPriceDataArray>((resolve, reject) => {
+        // getHotList({name:1}).then(data => {
+        //     // debugger
+        //     resolve(data)
+        // },err => {
+        //     reject()
+        // })
+    })
+}
+getPrice().then(data => {
+    let cbf = data[0].cbf;
+    //
+
+
+});
+
+type years = number[];
+let yearsss:years = [4,5,6,6]
+console.log(yearsss)
+
