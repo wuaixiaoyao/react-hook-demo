@@ -62,16 +62,14 @@ export default function Users() {
         <input id={"account"} type="text" />
         <br/>
         <label htmlFor="pwd">密码</label>
-        <input id={"pwd"} type="password" value={password} onChange = { changePwd }/>
+        <input id={"pwd"} type="password" value={password} onChange={changePwd}/>
     </div>
     return <div>
         <h2 onClick = { showModal}>登录</h2>
-        <BaseModal
-            modalVisible = {visible}
-            onCancelCb = { () => {
+        <BaseModal modalVisible = {visible}
+            onCancelCb = {() => {
                 setVisible(false)
-            }}
-        >
+            }}>
             <div className={styles["content-wrapper"]}>
                 <p>
                     <select name="type" id="loginType"
