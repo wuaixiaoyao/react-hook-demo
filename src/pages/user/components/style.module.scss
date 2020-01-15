@@ -5,8 +5,10 @@
 */
 .content-wrapper{
   width: 100%;
+  box-sizing: border-box;
   padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: #fff;
 }

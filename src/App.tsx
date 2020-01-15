@@ -1,7 +1,7 @@
 import {css} from 'emotion';
 import * as React from 'react';
 import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom'
-import Index from './pages/index/in'
+import Index from './pages/home'
 import Todo from './pages/todo';
 import Users from './pages/user';
 import Song from "./components/songs/SongItem";
@@ -45,7 +45,6 @@ const styles = {
     font-family: system-ui;
     margin: 24px auto;
     padding: 24px;
-    border:1px solid gray;
     width:90%;
   `,
 };

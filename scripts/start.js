@@ -22,7 +22,7 @@ const WebpackDevServer = require('webpack-dev-server');
 const clearConsole = require('react-dev-utils/clearConsole');
 const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
 const {
-  choosRound-robinePort,
+  choosePort,
   createCompiler,
   prepareProxy,
   prepareUrls,

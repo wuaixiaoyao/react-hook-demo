@@ -12,14 +12,8 @@ export interface IState {
 }
 
 export type Action =
-    | {
-    type: 'add todo';
-    todo: string;
-}
-    | {
-    type: 'delete todo';
-    index: number;
-};
+    | {type: 'add todo';todo: string;}
+    | {type: 'delete todo';index: number;};
 
 export function makeStore() {
     return createStore(reducer, {
