@@ -18,10 +18,7 @@ export default function Users() {
 	});
 	const { count } = useLogTime({ log: true, time: true });
 	const [ time, setTime ] = useState(0);
-	
-	useEffect(() => {
-
-	}, []);
+	useEffect(() => {}, []);
 
 	return (
 		<div>

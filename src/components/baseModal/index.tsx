@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Button } from 'antd-mobile';
+import { useModal } from '../../hook/useModal';
 const { useEffect, useCallback } = React;
 import styles from './index.module.scss';
 const { useState } = React;
@@ -14,27 +15,7 @@ type modalProps = {
 
 export default function BaseModal(props: modalProps) {
 	const { modalVisible, onCancelCb, showFooter } = props;
-	const [ visible, setVisible ] = useState(props.modalVisible);
-
-	useCallback(() => {
-
-	},[ modalVisible ]);
-
-	useEffect(
-		() => {
-			setVisible(modalVisible);
-		},[ modalVisible ]
-	);
-
-	function showModal() {
-		setVisible(true);
-	}
-
-	function hideModal() {
-		setVisible(false);
-		onCancelCb && onCancelCb();
-	}
-
+	const {  visible, hideModal } = useModal({ modalVisible, onCancelCb })
 	if (visible) {
 		return (
 			<div className={styles.base_modal_wrapper} onClick={hideModal} >

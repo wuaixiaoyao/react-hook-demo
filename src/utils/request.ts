@@ -25,8 +25,11 @@ type errorType = {
 		data: {
 			code: number;
 			message: string;
+			status?: number;
 		};
-	};
+	},
+	isAxiosError: boolean,
+
 };
 axios.interceptors.request.use(
 	(config: object): any => {
@@ -52,9 +55,13 @@ axios.interceptors.response.use(
 	},
 	(error: errorType) => {
 		NProgress.done();
+		let description = '请检查您的的网络';
 		const { response: { data } } = error;
-		const { code, message } = data;
-		Toast.info(message);
+		const { code, message, status } = data;
+		if(status === 504 ){
+			description = '网络请求超时';
+		}
+		Toast.info(message || description);
 		return Promise.reject(error);
 	}
 );

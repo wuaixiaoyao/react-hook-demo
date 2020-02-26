@@ -4,8 +4,8 @@
 
 import * as React from 'react';
 import { Button, InputItem } from 'antd-mobile';
-import { useModal } from '../../../components/hook/modal';
-import { useLogTime } from '../../../components/hook/useLogTime';
+import { useModal } from '../../../hook/useModal';
+import { useLogTime } from '../../../hook/useLogTime';
 import BaseModal from '../../../components/baseModal';
 import { getCode as getVerifyCode, pwdLogin } from '../../../api';
 import { ChangeProps } from '../../../types/event';
@@ -13,31 +13,17 @@ import styles from './style.module.scss';
 const { useState, useCallback, useEffect } = React;
 
 interface LoginModalProps {
-  modalVisible: boolean,
-  onCancelCb: ()=> void | undefined
+	modalVisible: boolean;
+	onCancelCb: () => void | undefined;
 }
 
-export function LoginModal(props: LoginModalProps) {
-  const { modalVisible, onCancelCb } = props;
-	let [ visible, setVisible ] = useState(props.modalVisible);
-
+function LoginModal(props: LoginModalProps) {
+	const { modalVisible, onCancelCb } = props;
+	const { visible, hideModal } = useModal({ modalVisible, onCancelCb })
 	const [ loginType, setLoginType ] = useState('verifyCode');
 	const [ phone, setPhone ] = useState('');
 	const [ password, setPassword ] = useState('');
-
 	const { count } = useLogTime({ log: true, time: true });
-
-	useEffect(
-		() => {
-      // debugger
-      setVisible(modalVisible);
-		},
-		[ modalVisible ]
-	);
-
-	function showModal() {
-		setVisible(true);
-	}
 
 	const getCode = async () => {
 		let res = await getVerifyCode({ phone });
@@ -45,7 +31,7 @@ export function LoginModal(props: LoginModalProps) {
 	};
 
 	const login = async () => {
-		setVisible(false);
+		hideModal()
 		// let params = {
 		// 	phone,
 		// 	password
@@ -76,8 +62,8 @@ export function LoginModal(props: LoginModalProps) {
 			<label htmlFor="code">验证码</label>
 			<input id={'code'} type="text" />
 		</div>
-  );
-  
+	);
+
 	const pwdView = () => (
 		<div>
 			<label htmlFor="account">手机号</label>
@@ -90,28 +76,27 @@ export function LoginModal(props: LoginModalProps) {
 
 	return (
 		<BaseModal
-				modalVisible={visible}
-				onCancelCb={ () => {
-          setVisible(false);  
-        }}
-			>
-				<div className={styles['content-wrapper']}>
-					<p>
-            登录方式：
-						<select name="type" id="loginType" value={loginType} onChange={changeType}>
-							<option key={1} value="verifyCode">
-								验证码登录
-							</option>
-							<option key={2} value="pwd">
-								密码登录
-							</option>
-						</select>
-					</p>
-					{loginType === 'verifyCode' ? verifyCodeView() : pwdView()}
-					<Button onClick={login} type="primary" style={{ width: '100%', marginTop: 20 }}>
-						登录
-					</Button>
-				</div>
-			</BaseModal>
+			modalVisible={visible}
+			onCancelCb={onCancelCb}
+		>
+			<div className={styles['content-wrapper']}>
+				<p>
+					登录方式：
+					<select name="type" id="loginType" value={loginType} onChange={changeType}>
+						<option key={1} value="verifyCode">
+							验证码登录
+						</option>
+						<option key={2} value="pwd">
+							密码登录
+						</option>
+					</select>
+				</p>
+				{loginType === 'verifyCode' ? verifyCodeView() : pwdView()}
+				<Button onClick={login} type="primary" style={{ width: '100%', marginTop: 20 }}>
+					登录
+				</Button>
+			</div>
+		</BaseModal>
 	);
 }
+export default React.memo(LoginModal);

@@ -17,15 +17,20 @@ export default function Index() {
 	foo.bar = 123;
 	foo.name = 'test';
 
-	useEffect(() => {}, []);
+	useEffect(() => {
+		setTimeout(() => {
+			console.log('home index')
+		},4000)
+	}, []);
+
 	return (
 		<div>
 			<h2>首页</h2>
-			<p>
+			<div>
 				<div>
 					<input type="file" accept="image/*" multiple />
 				</div>
-			</p>
+			</div>
 			<Banner />
 		</div>
 	);

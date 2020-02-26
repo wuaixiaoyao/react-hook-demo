@@ -9,11 +9,12 @@
         "legacy": true
       }
     ],
+    ["@babel/plugin-proposal-export-default-from"],
     [
       "import",
       {
         "libraryName": "antd-mobile",
-        "style":"css"
+        "style": "css"
       }
     ]
   ]
