@@ -93,6 +93,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "pm2": "^4.4.0",
     "tslint": "^5.19.0",
     "typescript": "^3.5.2"
   },

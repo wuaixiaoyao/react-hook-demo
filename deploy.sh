@@ -1,3 +1,4 @@
 # 下载
 yarn 
-yarn build
+yarn start
+# yarn build
