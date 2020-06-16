@@ -169,4 +169,7 @@ let instacne2 = Singleton.getInstance('instance two ');
 instacne.say('------------我是第2个实例 say-----');
 console.log('instance2', instacne2);
 
+
+
+
  

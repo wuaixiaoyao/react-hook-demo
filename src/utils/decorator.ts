@@ -21,3 +21,13 @@ export function second() {
 		console.log('second(): called');
 	};
 }
+
+// 猫叫
+export function mewing(num: number) {
+  return (target: any) => {
+    for (let i = 0; i < num; i++) {
+      console.log("喵喵喵！！！！！！！！");
+		}
+		// target.name = '我是喵喵实例'
+  };
+}
