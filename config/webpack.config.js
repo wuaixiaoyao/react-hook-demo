@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 const resolve = require('resolve');
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const PnpWebpackPlugin = require('pnp-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
@@ -470,6 +471,7 @@ module.exports = function(webpackEnv) {
     },
     plugins: [
       // Generates an `index.html` file with the <script> injected.
+      new HardSourceWebpackPlugin(),
       new HtmlWebpackPlugin(
         Object.assign(
           {},

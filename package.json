@@ -93,6 +93,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "hard-source-webpack-plugin": "^0.13.1",
     "pm2": "^4.4.0",
     "tslint": "^5.19.0",
     "typescript": "^3.5.2"

@@ -18,7 +18,7 @@ function configurable(value: boolean) {
 class Point {
   // 只读属性
   readonly sex: number;
-  //私有属性
+  // 私有属性
   private _x: number;
   private _y: number;
   constructor(x: number, y: number) {
@@ -104,6 +104,7 @@ class Animal {
     console.log('我是小动物');
   }
 }
+
 // 装饰类
 function classDecator(num: number) {
   return function (target: any) {
