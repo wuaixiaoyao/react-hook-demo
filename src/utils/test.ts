@@ -43,8 +43,8 @@ class Test {
 
   // 私有属性 - 外部实例不可以访问 只能在类内部访问  不能在声明它的类的外部访问
   private praviteHide() {
-		this.protectedFn();
-	}
+    this.protectedFn();
+  }
 
   // 受保护属性 - 外部实例不可以访问 只能在类和子类内部访问
   protected protectedFn() {
@@ -105,7 +105,7 @@ console.log('sonTest1', sonTest1);
 sonTest1.age = 20;
 console.log(sonTest1.age, 'sonTest1.age');
 console.log('-------------执行受保护方法---------------------');
-console.log(sonTest1.handleSonProtectedFn())
+console.log(sonTest1.handleSonProtectedFn());
 
 /*-----------------------------*/
 interface IPriceData {
@@ -127,18 +127,18 @@ function getPrice() {
   // Promise的泛型参数使用了IPriceDataArray类型，then里面返回的数据就是IPriceDataArray类型
   return new Promise<IPriceDataArray>((resolve, reject) => {
     resolve([
-			{
-				cbf: '1',
-				/** id */
-				id: '1',
-				/** 市场价格 */
-				m: '1',
-				/** 后台价 */
-				op: '1',
-				/** 前台价 */
-				p: '1'
-			}
-		]);
+      {
+        cbf: '1',
+        /** id */
+        id: '1',
+        /** 市场价格 */
+        m: '1',
+        /** 后台价 */
+        op: '1',
+        /** 前台价 */
+        p: '1',
+      },
+    ]);
     console.log('resolve 后面的 打印 price------------');
     // getHotList({name:1}).then(data => {
     //     resolve(data)
@@ -148,6 +148,7 @@ function getPrice() {
   });
 }
 getPrice().then((data) => {
+  console.log('我是promise 的回调--------');
   let cbf = data[0].cbf;
   //
 });

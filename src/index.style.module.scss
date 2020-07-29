@@ -4,17 +4,17 @@
  * @Description:
 */
 
-.nav-wrapper{
-  height: 30px;
-  ul{
-    display: flex;
-    list-style: none;
-    li{
-      flex: 1;
-      text-align: center;
-      a {
-        text-decoration: none;
-      }
+.nav-wrapper {
+    height: 30px;
+    ul {
+        display: flex;
+        list-style: none;
+        li {
+            flex: 1;
+            text-align: center;
+            a {
+                text-decoration: none;
+            }
+        }
     }
-  }
 }

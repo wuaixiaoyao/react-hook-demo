@@ -26,7 +26,8 @@ const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
-
+const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+const smp = new SpeedMeasurePlugin();
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
@@ -117,6 +118,7 @@ module.exports = function (webpackEnv) {
     return loaders;
   };
 
+  // smp.wrap
   return {
     mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
     // Stop compilation early in production
@@ -210,7 +212,7 @@ module.exports = function (webpackEnv) {
           },
           // Use multi-process parallel running to improve the build speed
           // Default number of concurrent runs: os.cpus().length - 1
-          parallel: true,
+          parallel: 4,
           // Enable file caching
           cache: true,
           sourceMap: shouldUseSourceMap,
@@ -299,7 +301,7 @@ module.exports = function (webpackEnv) {
         {
           test: /\.(js|mjs|jsx)$/,
           enforce: 'pre',
-          use: [{
+          use: ['thread-loader', {
             options: {
               formatter: require.resolve('react-dev-utils/eslintFormatter'),
               eslintPath: require.resolve('eslint'),
@@ -474,7 +476,7 @@ module.exports = function (webpackEnv) {
       // 显示构建进度
       new ProgressBarPlugin(),
       // 体积分析 🎃
-      new BundleAnalyzerPlugin({
+      isEnvProduction && new BundleAnalyzerPlugin({
         //  可以是`server`，`static`或`disabled`。
         //  在`server`模式下，分析器将启动HTTP服务器来显示软件包报告。
         //  在“静态”模式下，会生成带有报告的单个HTML文件。
