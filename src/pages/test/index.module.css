@@ -1,0 +1,8 @@
+.title {
+  color: #333;
+}
+
+/* 全局样式 */
+:global(.global-size) {
+  font-size: 14px;
+}

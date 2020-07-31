@@ -8,7 +8,8 @@
     "name": "react-hook", // 起个进程名，即AppName
     "script": "server.js", // 启动的入口文件
     "watch": true, // 监听文件变化，自动重启
-    "ignore_watch": [ // 不需要监听的文件
+    "ignore_watch": [
+      // 不需要监听的文件
       "node_modules",
       "logs"
     ],

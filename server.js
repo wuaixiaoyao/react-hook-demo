@@ -32,5 +32,5 @@ app.use('/api',
 
 
 app.listen(port);
-console.log('-------');
-console.log('port:', port);
+console.log('服务已开启');
+console.log(`http://localhost:${port}`)

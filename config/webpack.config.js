@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 const resolve = require('resolve');
+// 开始首次加载编译
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const PnpWebpackPlugin = require('pnp-webpack-plugin');
@@ -25,8 +26,12 @@ const getClientEnvironment = require('./env');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
+// bundle 分析插件
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+// 预渲染插件
+const PrerenderSPAPlugin = require('prerender-spa-plugin')
+
 const smp = new SpeedMeasurePlugin();
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
@@ -398,6 +403,9 @@ module.exports = function (webpackEnv) {
               use: getStyleLoaders({
                 importLoaders: 1,
                 sourceMap: isEnvProduction && shouldUseSourceMap,
+                // css 开启模块化
+                modules: true,
+                getLocalIdent: getCSSModuleLocalIdent,
               }),
               // Don't consider CSS imports dead code even if the
               // containing package claims to have no side effects.
@@ -471,7 +479,7 @@ module.exports = function (webpackEnv) {
     },
     plugins: [
       // Generates an `index.html` file with the <script> injected.
-      // 开启缓存
+      // 开启首次编译缓存
       new HardSourceWebpackPlugin(),
       // 显示构建进度
       new ProgressBarPlugin(),
@@ -505,6 +513,13 @@ module.exports = function (webpackEnv) {
         //  在这里查看更多选项：https：  //github.com/webpack/webpack/blob/webpack-1/lib/Stats.js#L21
         statsOptions: null,
         logLevel: "info"
+      }),
+      // TODO:预渲染插件
+      new PrerenderSPAPlugin({
+        // Required - The path to the webpack-outputted app to prerender.
+        staticDir: path.join(__dirname, '../dist'),
+        // Required - Routes to render.
+        routes: ['/', '/about', '/test'],
       }),
       new HtmlWebpackPlugin(
         Object.assign({}, {
