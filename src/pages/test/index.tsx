@@ -2,26 +2,21 @@
  * @Author: wuaixiaoyao
  * @Date: 2020-07-30 19:43:30
  * @Last Modified by: wuaixiaoyao
- * @Last Modified time: 2020-07-31 16:46:51
+ * @Last Modified time: 2020-09-02 13:46:41
  */
 import * as React from 'react';
 import { useToggle } from 'ahooks';
 import { Button } from 'antd-mobile';
 import classNames from 'classnames';
-// css
-import testCss from './test.css';
-
 // scss
 import './common.scss';
-
+import './override.scss';
 // css module
 import cssStyle from './index.module.css';
 import styles1 from './title1.module.scss';
 
 // css in js e.g. styles-components
-import styled from 'styled-components';
-
-console.log('testCss:', testCss);
+import styled, { keyframes } from 'styled-components';
 console.log('title1:', styles1);
 
 interface MyButtonProps {
@@ -43,18 +38,21 @@ const CssModule = () => {
 
   return (
     <React.Fragment>
-      <Button type={'primary'} onClick={() => toggle()}>
-        {visible ? '隐藏' : '显示'}
-      </Button>
+      {/* 覆盖第三方UI库 样式*/}
+      <div className={styles1['am-button-custom-wrapper']}>
+        <Button type={'primary'} onClick={() => toggle()}>
+          {visible ? '隐藏' : '显示'}
+        </Button>
+      </div>
       <div className={wrapperClassNames}>
         <h1 className={cssStyle.title}>css module 测试标题</h1>
         <h3 className={styles1.title}> 测试红色标题</h3>
-        <h5 className={testCss.test}>测试h5</h5>
         {/* 使用模板字符传 多个class 组合 */}
         <div className={`${styles1.content} ${styles1.color} common-show`}>
           我是文章内容我是文章内容我是文章内容我是文章内容我是文章内容我是文章内容
         </div>
         <div className={styles1['composes-class']}>我是继承的视图</div>
+        <Button type={'primary'}>我是am 按钮 我字体color没被覆盖</Button>
       </div>
     </React.Fragment>
   );
@@ -74,6 +72,9 @@ const CssInJs = () => {
     width: '100%';
     height: 300;
     background-color: ${(props: DivWrapperProps) => props.color};
+    .header-wrapper {
+      font-size: 18px;
+    }
   `;
 
   // 覆盖第三方组件库样式
@@ -101,9 +102,28 @@ const CssInJs = () => {
     border-color: tomato;
   `;
 
+  // 创建关键帧
+  const rotate = keyframes`
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+    `;
+
+  // 创建动画组件
+  const Rotate = styled.div`
+    display: inline-block;
+    animation: ${rotate} 2s linear infinite;
+    padding: 2rem 1rem;
+    font-size: 1.2rem;
+  `;
   return (
     <React.Fragment>
       <DivWrapper color={'#999'}>
+        <div className="header-wrapper">我是header</div>
         <h1 className={cssStyle.title}>css in Js 测试标题</h1>
         <h3 className={styles1.title}> 测试红色标题</h3>
         <div className={styles1.content}>
@@ -113,14 +133,25 @@ const CssInJs = () => {
         <MyButton primary>我是自定义按钮</MyButton>
         <TomatoButton>我是继承的自定义按钮</TomatoButton>
         <button>我是普通按钮</button>
+        <Rotate>&lt; 💅🏾 &gt;</Rotate>
       </DivWrapper>
     </React.Fragment>
   );
 };
 
 const Test = () => {
+  const win = window as any;
+  const Cb: () => void;
+  const rIC = () => {
+    const requestId = win.requestIdleCallback(cb: Cb, {
+      timeout: 100
+    });
+  };
   return (
     <React.Fragment>
+      <div className="override-wrapper">
+        <div className="override-content">我将被被覆盖</div>
+      </div>
       <CssModule />
       <hr />
       <CssInJs />

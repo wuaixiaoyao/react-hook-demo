@@ -25,6 +25,8 @@ const paths = require('./paths');
 const getClientEnvironment = require('./env');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
+const postcssPxToViewport = require('postcss-px-to-viewport');
+const postcssWriteSvg = require('postcss-write-svg');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
 // bundle 分析插件
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
@@ -106,6 +108,18 @@ module.exports = function (webpackEnv) {
                 flexbox: 'no-2009',
               },
               stage: 3,
+            }),
+            postcssPxToViewport({
+              viewportWidth: 375, // (Number) The width of the viewport.
+              viewportHeight: 667, // (Number) The height of the viewport.
+              unitPrecision: 3, // (Number) The decimal numbers to allow the REM units to grow to.
+              viewportUnit: 'vw', // (String) Expected units.
+              selectorBlackList: ['.ignore', '.hr-line', '.hairlines', 'swiper-wrapper', 'swiper-img', 'active-swiper-img', 'swiper-item', 'swiper-content'], // (Array) The selectors to ignore and leave as px.
+              minPixelValue: 0, // (Number) Set the minimum pixel value to replace.
+              mediaQuery: false // (Boolean) Allow px to be converted in media queries.
+            }),
+            postcssWriteSvg({
+              utf8: false
             }),
           ],
           sourceMap: isEnvProduction && shouldUseSourceMap,
@@ -404,8 +418,8 @@ module.exports = function (webpackEnv) {
                 importLoaders: 1,
                 sourceMap: isEnvProduction && shouldUseSourceMap,
                 // css 开启模块化
-                modules: true,
-                getLocalIdent: getCSSModuleLocalIdent,
+                // modules: true,
+                // getLocalIdent: getCSSModuleLocalIdent,
               }),
               // Don't consider CSS imports dead code even if the
               // containing package claims to have no side effects.

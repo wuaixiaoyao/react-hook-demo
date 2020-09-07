@@ -1,15 +1,11 @@
 {
   "extends": "react-app",
-  "plugins": [
-    "react-hooks"
-  ],
+  "plugins": ["react-hooks"],
   "rules": {
     "jsx-a11y/anchor-is-valid": [
       "warring",
       {
-        "aspects": [
-          "preferButton"
-        ]
+        "aspects": ["preferButton"]
       }
     ],
     "react-hooks/rules-of-hooks": "error", //检查 Hook 的规则
@@ -24,19 +20,9 @@
         "allowTemplateLiterals": true
       }
     ],
-    "jsx-quotes": [
-      "warn",
-      "prefer-double"
-    ],
-    "no-console": [
-      "off"
-    ],
-    "indent": [
-      "error",
-      2
-    ]
-
-
+    "jsx-quotes": ["warn", "prefer-double"],
+    "no-console": ["off"],
+    "indent": ["error", 2]
   },
   "parserOptions": {
     "ecmaFeatures": {

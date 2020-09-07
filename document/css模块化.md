@@ -1,4 +1,4 @@
-# css 样式隔离 & 模块化
+# css 模块化 & 样式隔离
 
 日常的开发模式 存在以下痛点。
 
@@ -6,10 +6,10 @@
 - 复用性低：CSS 缺少抽象的机制，选择器很容易出现重复，不利于维护和复用
 
 对于这个问题，也有一些方案。
-vue 框架已经帮我们实现了样式模块化通过
-style 标签的 scoped 指令定义作用域，通过编译为该作用域所有标签生成唯一的属性。
-image[]
-但是 react 并未给我们实现，我们可能会能通过其它方案来实现，如：约定 css class 命名规范(命名空间) 加上业务前缀，或者封装组件, 或者[BEM 命名规范(block-element-modife)](https://bemcss.com/)、 但并不能解决根源问题，反而使代码更难维护。
+vue 框架已经帮我们实现了 css 模块化, 通过
+style 标签的 scoped 指令定义作用域，通过编译为该作用域所有标签生成唯一的属性。如图：
+![](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6b86cc72b94e4df49adb0fba1ffee3eb~tplv-k3u1fbpfcp-zoom-1.image)
+但是 react 并未给我们实现，我们可能会能通过其它方案来实现，如：约定 css class 命名规范(命名空间) 加上业务前缀，或者封装组件, 或者[BEM 命名规范(block-element-modife)](https://bemcss.com/)/[BEM 简介](https://segmentfault.com/a/1190000012705634)、 但并不能解决根源问题，反而使代码更难维护。
 
 # 目前主流的 css 模块化分为 css modules 和 css in js 两种方案
 
@@ -39,7 +39,7 @@ css module 需要 webpack 配置 css-loader 或者 scss-loader , module 为 true
 - [hash:length] 表示 32 位的 hash 值
   注意：只有类名选择器和 ID 选择器才会被模块化控制，类似 body h2 span 这些标签选择器是不会被模块化控制
 
-css 作用域
+css module 作用域
 
 - 作用域默认为 local 即只在当前模块生效
 
@@ -55,9 +55,13 @@ css 作用域
 }
 ```
 
+css module 高级使用
+
 - 和外部样式混用
 
 ```js
+import classNames from 'classnames';
+
 // 使用classNames
 const wrapperClassNames = classNames({
   'common-show': visible,
@@ -66,12 +70,30 @@ const wrapperClassNames = classNames({
 });
 <div className={wrapperClassNames}></div>;
 
-{
-  /* 使用模板字符传 多个class 组合 */
-}
+// 使用模板字符串
 <div className={`${styles1.content} ${styles1.color} common-show`}>
   我是文章内容我是文章内容我是文章内容我是文章内容我是文章内容我是文章内容
 </div>;
+```
+
+- 覆盖第三方 UI 库
+
+```jsx
+{/* 覆盖第三方UI库 样式*/}
+<div className={styles1['am-button-custom-wrapper']}>
+  <Button type={'primary'} onClick={() => toggle()}>
+     {visible ? '隐藏' : '显示'}
+  </Button>
+</div>
+
+//  覆盖第三方UI库的 样式
+.am-button-custom-wrapper {
+  :global {
+    .am-button-primary {
+      color: red;
+    }
+  }
+}
 ```
 
 ### css in js
@@ -86,8 +108,10 @@ const style = {
 };
 ```
 
+- [emotion](https://emotion.sh/docs/introduction)
+
 - styled-components
-  styled-components 是针对 React 写的一套 css in js 框架, 在你使用 styled-components 进行样式定义的同时，你也就创建了一个 React 组件。[css in js ](https://www.jianshu.com/p/27788be90605)
+  [styled-components](https://styled-components.com/docs/basics#extending-styles) 是针对 React 写的一套 css in js 框架, 在你使用 styled-components 进行样式定义的同时，你也就创建了一个 React 组件。[css in js ](https://www.jianshu.com/p/27788be90605)
 
   ```css
 
@@ -119,9 +143,28 @@ const style = {
     color: tomato;
     border-color: tomato;
   `;
+
+  // 创建关键帧
+  const rotate = keyframes`
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+    `;
+
+  // 创建动画组件
+  const Rotate = styled.div`
+    display: inline-block;
+    animation: ${rotate} 2s linear infinite;
+    padding: 2rem 1rem;
+    font-size: 1.2rem;
+  `;
   ```
 
-styled-components 优势 同时它支持将 props 以插值的方式传递给组件,以调整组件样式
+styled-components 优势: 支持将 props 以插值的方式传递给组件,以调整组件样式, 跨平台可在 RN 和 next 中使用。 缺点： 预处理器和后处理器不兼容。
 
 ### 对比总结
 
@@ -131,7 +174,4 @@ styled-components 优势 同时它支持将 props 以插值的方式传递给组
 
 - [梳理 CSS 模块化
   ](https://juejin.im/post/6844904034281734151#heading-9)
-
-```
-
-```
+- [styled-component, emotion and jss 对比](https://www.cnblogs.com/yy17yy/p/11618775.html)

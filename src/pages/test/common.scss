@@ -2,7 +2,7 @@
  * @Author: wuaixiaoyao 
  * @Date: 2020-07-31 14:44:57 
  * @Last Modified by: wuaixiaoyao
- * @Last Modified time: 2020-07-31 15:14:27
+ * @Last Modified time: 2020-08-13 19:06:54
  */
 
 // 全局样式
@@ -12,4 +12,13 @@
 
 .common-hide {
   visibility: hidden;
+}
+
+.override-wrapper {
+  width: 100%;
+  height: 40px;
+  .override-content {
+    font-size: 20px;
+    color: red;
+  }
 }
