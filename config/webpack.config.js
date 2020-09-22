@@ -33,6 +33,8 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPl
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 // 预渲染插件
 const PrerenderSPAPlugin = require('prerender-spa-plugin')
+// 自定义插件
+const FileListPlugin = require('./plugin/FileListPlugin')
 
 const smp = new SpeedMeasurePlugin();
 
@@ -535,6 +537,7 @@ module.exports = function (webpackEnv) {
         // Required - Routes to render.
         routes: ['/', '/about', '/test'],
       }),
+      isEnvProduction && new FileListPlugin(),
       new HtmlWebpackPlugin(
         Object.assign({}, {
             inject: true,
