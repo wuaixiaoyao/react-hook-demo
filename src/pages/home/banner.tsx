@@ -17,10 +17,13 @@ type bannerItem = {
   titleColor: 'red' | 'blue';
 };
 
+interface IProps {
+  ref: any;
+}
 const BannerWrapper = styled.div`
   background: #cecece;
 `;
-export default function Banner() {
+export default function Banner(props: IProps) {
   const [bannerList, setBannerList] = useState([]);
 
   useEffect(() => {

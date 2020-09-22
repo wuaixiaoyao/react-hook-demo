@@ -2,9 +2,10 @@
  * @Author: wuaixiaoyao 
  * @Date: 2020-09-22 13:30:59 
  * @Last Modified by: wuaixiaoyao
- * @Last Modified time: 2020-09-22 13:49:57
+ * @Last Modified time: 2020-09-22 13:53:01
  */
 
+// FileListPlugin 最终生成 fileList.md 文件
  class FileListPlugin {
    apply (compiler) {
     compiler.hooks.emit.tapAsync('FileListPlugin', (compilation, callback) => {

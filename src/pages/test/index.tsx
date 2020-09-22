@@ -2,7 +2,7 @@
  * @Author: wuaixiaoyao
  * @Date: 2020-07-30 19:43:30
  * @Last Modified by: wuaixiaoyao
- * @Last Modified time: 2020-09-02 13:46:41
+ * @Last Modified time: 2020-09-07 10:33:47
  */
 import * as React from 'react';
 import { useToggle } from 'ahooks';
@@ -142,11 +142,11 @@ const CssInJs = () => {
 const Test = () => {
   const win = window as any;
   const Cb: () => void;
-  const rIC = () => {
-    const requestId = win.requestIdleCallback(cb: Cb, {
-      timeout: 100
-    });
-  };
+  // const rIC = () => {
+  //   const requestId = win.requestIdleCallback(cb: Cb, {
+  //     timeout: 100
+  //   });
+  // };
   return (
     <React.Fragment>
       <div className="override-wrapper">
