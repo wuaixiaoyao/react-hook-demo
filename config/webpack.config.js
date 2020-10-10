@@ -33,9 +33,13 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPl
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 // 预渲染插件
 const PrerenderSPAPlugin = require('prerender-spa-plugin')
+//
+const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
+// HappyPack插件
+const HappyPack = require('happypack');
 // 自定义插件
 const FileListPlugin = require('./plugin/FileListPlugin')
-
+// SpeedMeasurePlugin
 const smp = new SpeedMeasurePlugin();
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
@@ -353,6 +357,7 @@ module.exports = function (webpackEnv) {
               test: /\.(js|mjs|jsx|ts|tsx)$/,
               include: paths.appSrc,
               loader: require.resolve('babel-loader'),
+              // use: ['happypack/loader?id=babel'],
               options: {
                 customize: require.resolve(
                   'babel-preset-react-app/webpack-overrides'
@@ -537,7 +542,26 @@ module.exports = function (webpackEnv) {
         // Required - Routes to render.
         routes: ['/', '/about', '/test'],
       }),
-      isEnvProduction && new FileListPlugin(),
+      // dll plugin
+      new webpack.DllReferencePlugin({
+        manifest: path.resolve(__dirname, '../dist/manifest.json')
+      }),
+      new AddAssetHtmlPlugin({
+        filepath: path.resolve(__dirname, '../dist/react.dll.js')
+      }),
+      // 自定义插件
+      new FileListPlugin(),
+      // HappyPack
+      new HappyPack({
+        /*
+         * 必须配置
+         */
+        // id 标识符，要和 rules 中指定的 id 对应起来
+        id: 'babel',
+        // 需要使用的 loader，用法和 rules 中 Loader 配置一样
+        // 可以直接是字符串，也可以是对象形式
+        loaders: ['babel-loader?cacheDirectory']
+      }),
       new HtmlWebpackPlugin(
         Object.assign({}, {
             inject: true,

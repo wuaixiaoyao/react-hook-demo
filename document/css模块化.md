@@ -39,11 +39,11 @@ css module 需要 webpack 配置 css-loader 或者 scss-loader , module 为 true
 - [hash:length] 表示 32 位的 hash 值
   注意：只有类名选择器和 ID 选择器才会被模块化控制，类似 body h2 span 这些标签选择器是不会被模块化控制
 
-css module 作用域
+**css module 作用域**
 
-- 作用域默认为 local 即只在当前模块生效
+- 作用域默认为 local 局部作用域，只在当前模块生效
 
-- global 被 :global 包裹起来的类名，不会被模块化
+- 被 :global 包裹起来的类名，不会被模块化，作用域为全局的(非特殊情况尽量避免)
 
 ```js
 /* 加上 :global 会全局样式 */
@@ -55,7 +55,7 @@ css module 作用域
 }
 ```
 
-css module 高级使用
+**css module 高级使用**
 
 - 和外部样式混用
 
