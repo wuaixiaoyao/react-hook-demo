@@ -263,6 +263,13 @@ module.exports = function (webpackEnv) {
       splitChunks: {
         chunks: 'all',
         name: false,
+        cacheGroups: {
+          commons: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendors',
+            chunks: 'all'
+          }
+        }
       },
       // Keep the runtime chunk separated to enable long term caching
       // https://twitter.com/wSokra/status/969679223278505985
@@ -551,6 +558,7 @@ module.exports = function (webpackEnv) {
       }),
       // 自定义插件
       new FileListPlugin(),
+      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
       // HappyPack
       new HappyPack({
         /*
