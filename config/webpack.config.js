@@ -57,6 +57,9 @@ const cssModuleRegex = /\.module\.css$/;
 const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
 
+console.log('path.resolve', path.resolve(__dirname, '../dist/manifest.json'));
+console.log('path.join', path.join(__dirname, '../dist/manifest.json'));
+
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
 module.exports = function (webpackEnv) {
@@ -366,6 +369,22 @@ module.exports = function (webpackEnv) {
               loader: require.resolve('babel-loader'),
               // use: ['happypack/loader?id=babel'],
               options: {
+                // presets: [
+                // '@babel/preset-env',
+                // {
+                //   // useBuiltIns: 'usage', // 按需加载
+                //   // corejs: {
+                //   //   version: 3
+                //   // }, // 指定core-js版本
+                //   targets: { // 指定兼容的浏览器版本
+                //     chrome: '60',
+                //     firefox: '50',
+                //     ie: '9',
+                //     safari: '10',
+                //     edge: '17'
+                //   },
+                // },
+                // ],
                 customize: require.resolve(
                   'babel-preset-react-app/webpack-overrides'
                 ),

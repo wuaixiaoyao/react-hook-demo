@@ -136,8 +136,8 @@ function getPrice() {
         /** 后台价 */
         op: '1',
         /** 前台价 */
-        p: '1',
-      },
+        p: '1'
+      }
     ]);
     console.log('resolve 后面的 打印 price------------');
     // getHotList({name:1}).then(data => {
