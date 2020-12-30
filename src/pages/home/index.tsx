@@ -3,77 +3,86 @@
  * @date 2019/8/30
  * @Description: home
  */
-import * as React from 'react';
+import React, { useRef, useEffect, useState } from 'react';
+import { useInterval } from 'react-use';
 import Banner from './banner';
-import { useRef, useEffect, forwardRef } from 'react';
 import Timer from '../timer';
+import HooksTest from './test';
 
-export default function Index() {
-  interface Foo {
-    bar: number;
-    name: string;
-  }
-  const foo = {} as Foo;
-  foo.bar = 123;
-  foo.name = 'test';
+interface Foo {
+  bar: number;
+  name: string;
+}
+const foo = {} as Foo;
+foo.bar = 123;
+foo.name = 'test';
 
+export default function Index(props: any) {
+  const [count, setCount] = useState(0);
   const bannerRef = useRef(null);
+  const currentRef = useRef(null);
+  console.log('currentRef', currentRef);
 
   useEffect(() => {
-    setTimeout(() => {
-      console.log('home index');
-      console.log('bannerRef:', bannerRef)
-    }, 4000);
+    // 第一次渲染结束执行
+    window.addEventListener('scoll', handleScroll);
+    return () => {
+      // 组件卸载之前执行
+      window.removeEventListener('scoll', handleScroll);
+    };
   }, []);
 
   useEffect(() => {
-    const win: any = window;
-    const EXIF = win.EXIF;
-    var img1 = document.getElementById('img1');
-    console.log('EXIF:', EXIF);
-    // EXIF.getData(img1, function () {
-    //   var make = EXIF.getTag(this, 'Make');
-    //   var model = EXIF.getTag(this, 'Model');
-    //   var makeAndModel = document.getElementById('makeAndModel');
-    //   makeAndModel.innerHTML = `${make} ${model}`;
-    // });
-
-    // var img2 = document.getElementById('img2');
-    // EXIF.getData(img2, function () {
-    //   var allMetaData = EXIF.getAllTags(this);
-    //   var allMetaDataSpan = document.getElementById('allMetaDataSpan');
-    //   allMetaDataSpan.innerHTML = JSON.stringify(allMetaData, null, '\t');
-    // });
+    console.log('每次渲染结束都会执行');
   });
 
-  const inputEl = useRef(null);
+  useEffect(() => {
+    console.log('只有在 count 变化后才会执行');
+  }, [count]);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCount(count + 1);
+      // console.log('bannerRef:', bannerRef);
+      console.log('count:', count + 1);
+    }, 1000);
+    return clearInterval(timer);
+  }, []);
+
+  const handleScroll = () => {
+    console.log('----scoll----');
+  };
+
+  const inputEl = useRef<HTMLInputElement>(null);
+
   const onButtonClick = () => {
     // `current` 指向已挂载到 DOM 上的文本输入元素
-    // inputEl && inputEl.current && inputEl.current.onfocus && inputEl.current.onfocus();
-    console.log('inputEl:', inputEl)
+    inputEl && inputEl.current && inputEl.current.focus && inputEl.current.focus();
+    console.log('inputEl:', inputEl);
   };
 
   return (
-    <div>
+    <div style={{ height: 800 }}>
       <h2 className={'global-color'}>
         首页
-        <div className={'common-width'} onClick={onButtonClick} >首页内容</div>
-        <input forwardRef={inputEl} type="text" />
+        <div className={'common-width'} onClick={onButtonClick}>
+          首页内容 - 点击聚焦
+        </div>
+        <input ref={inputEl} type="text" />
       </h2>
       <div>
         <div>
           <input type="file" accept="image/*" multiple />
         </div>
       </div>
-      <Banner ref={bannerRef}/>
-      <img src="image1.jpg" id="img1" />
+      {/* <Banner ref={bannerRef} /> */}
       <pre>
         Make and model: <span id="makeAndModel"></span>
       </pre>
       <br />
-      <img src="image2.jpg" id="img2" />
       <pre id="allMetaDataSpan"></pre>
-      <Timer/>
+      <Timer />
+      <HooksTest />
     </div>
   );
 }

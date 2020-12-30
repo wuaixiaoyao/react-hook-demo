@@ -18,7 +18,7 @@ const TextInputWithFocusButton = () => {
   const inputEl = useRef(null);
   const onButtonClick = () => {
     // `current` points to the mounted text input element
-    inputEl.current.focus();
+    // inputEl.current.focus();
   };
   return (
     <>

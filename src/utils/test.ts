@@ -24,6 +24,7 @@ class Test {
   get age() {
     return this.ageNumber;
   }
+
   set age(value: number) {
     console.log(`setter${value}`);
     this.ageNumber = value;
@@ -55,6 +56,7 @@ class Test {
   public publiceHello(word: any) {
     console.log('------------publiceHello-----------');
     console.log(`你好 ${word}`);
+    Test.fn();
   }
 
   // 静态属性、方法

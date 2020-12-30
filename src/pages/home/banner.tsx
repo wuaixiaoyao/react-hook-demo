@@ -23,7 +23,7 @@ interface IProps {
 const BannerWrapper = styled.div`
   background: #cecece;
 `;
-export default function Banner(props: IProps) {
+const Banner: React.FC<any> = (props: IProps): JSX.Element => {
   const [bannerList, setBannerList] = useState([]);
 
   useEffect(() => {
@@ -47,4 +47,5 @@ export default function Banner(props: IProps) {
       </Carousel>
     </BannerWrapper>
   );
-}
+};
+export default Banner;

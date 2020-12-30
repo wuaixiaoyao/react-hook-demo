@@ -6,7 +6,7 @@ module.exports = {
     react: ['react', 'react-dom', 'react-router', 'react-router-dom']
   },
   output: {
-    library:  '[name]', // 以一个库的形式导出
+    library: '[name]', // 以一个库的形式导出
     filename: '[name].dll.js'
   },
   plugins: [

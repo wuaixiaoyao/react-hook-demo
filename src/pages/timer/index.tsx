@@ -14,7 +14,15 @@ const Timer: FC<ApplicationsProps> = (props) => {
   const [nums, setNums] = useState(0);
 
   useEffect(() => {
-    goStart();
+    console.log('每次渲染都执行！！！！');
+  });
+
+  useEffect(() => {
+    console.log('nums变化后执行');
+  }, [nums]);
+
+  useEffect(() => {
+    goStart(1);
     return () => {
       // 组件销毁时，清除定时器
       goClear;
@@ -22,17 +30,15 @@ const Timer: FC<ApplicationsProps> = (props) => {
   }, []);
 
   // 点击开始
-  const goStart = useCallback(() => {
-    (index?: number) => {
-      goClear();
-      timer.current = setInterval(() => {
-        console.log(timer);
-        // 注意此处，不是直接通过setNums(),修改里面的值，因为闭包原因，如果通过这种方式会一直为1，通过测试，不是更改值方式的原因，如果通过useReducer更改值也不会改变依然是1
-        setNums((n) => {
-          return n + 1;
-        });
-      }, 1000);
-    };
+  const goStart = useCallback((index?: number) => {
+    goClear();
+    timer.current = setInterval(() => {
+      console.log('timer', timer);
+      // 注意此处，不是直接通过setNums(),修改里面的值，因为闭包原因，如果通过这种方式会一直为1，通过测试，不是更改值方式的原因，如果通过useReducer更改值也不会改变依然是1
+      setNums((n) => {
+        return n + 1;
+      });
+    }, 1000);
   }, []);
 
   const goClear = () => {
@@ -46,7 +52,7 @@ const Timer: FC<ApplicationsProps> = (props) => {
           type="primary"
           style={{ marginBottom: 10 }}
           onClick={() => {
-            goStart();
+            goStart(1);
           }}
         >
           开始
