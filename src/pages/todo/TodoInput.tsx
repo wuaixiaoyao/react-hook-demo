@@ -1,21 +1,18 @@
-/**
- * @author wuaixiaoyao
- * @date 2019/7/1
- * @Description:
- */
-import * as React from 'react';
+import React, { useState } from 'react';
 import { css } from 'emotion';
 import { useDispatch } from 'redux-react-hook';
-const { useState } = React;
+
 export default function TodoInput() {
   const [newTodo, setNewTodo] = useState('');
   const dispatch = useDispatch();
-  function addTodo() {
+
+  const addTodo = () => {
     if (newTodo) {
       dispatch({ type: 'add todo', todo: newTodo });
       setNewTodo('');
     }
-  }
+  };
+
   return (
     <div className={styles.inputWrapper}>
       <input
@@ -36,6 +33,7 @@ export default function TodoInput() {
     </div>
   );
 }
+
 const styles = {
   root: css`
     box-sizing: border-box;
@@ -53,5 +51,5 @@ const styles = {
     border: none;
     text-align: center;
     background: red;
-  `,
+  `
 };

@@ -38,6 +38,7 @@ const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 // HappyPack插件
 const HappyPack = require('happypack');
 // 自定义插件
+const ConsolePlugin = require('./plugin/ConsolePlugin')
 const FileListPlugin = require('./plugin/FileListPlugin')
 // SpeedMeasurePlugin
 const smp = new SpeedMeasurePlugin();
@@ -577,6 +578,7 @@ module.exports = function (webpackEnv) {
       }),
       // 自定义插件
       new FileListPlugin(),
+      new ConsolePlugin(),
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
       // HappyPack
       new HappyPack({

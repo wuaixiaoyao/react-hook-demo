@@ -13,6 +13,7 @@ type modalProps = {
   onCancelCb?: (() => void) | undefined;
 };
 
+// TODO: 使用 react.createProtal 实现
 export default function BaseModal(props: modalProps) {
   const { modalVisible, onCancelCb, showFooter } = props;
   const { visible, hideModal } = useModal({ modalVisible, onCancelCb });
