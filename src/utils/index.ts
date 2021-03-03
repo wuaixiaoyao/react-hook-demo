@@ -53,10 +53,14 @@ const getStringLength = (string: string): number => {
 };
 console.log(getStringLength('常见'), '长度');
 
+// ts 泛型可参考 ：
+// https://blog.csdn.net/6346289/article/details/106654434?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control
+
 //泛型接口 - T 在引用的时候补充
-interface Result<T> {
+interface Result<T, M> {
   result: boolean;
   data: T;
+  message?: M;
 }
 
 interface Company {
@@ -64,20 +68,90 @@ interface Company {
   name: string;
 }
 
-const result: Result<Company> = {
+const result: Result<Company, number> = {
   result: false,
   data: {
     id: 1,
     name: '小白'
-  }
+  },
+  message: 1223
 };
 console.log('泛型result:', result);
+
+// T U 为类型变量
+
+function identity<T, U>(value: T, message: U): T {
+  console.log(message);
+  return value;
+}
+console.log('-----------------T U 为类型变量------------');
+console.log(identity<Number, string>(68, 'Semlinker'));
+
+// 使用元组
+function identityTouple<T, U>(value: T, message: U): [T, U] {
+  return [value, message];
+}
+
+console.log('------------------泛型元组-----------------');
+console.log(identityTouple(1, '哈哈'));
 
 // T 是一个类型变量 它是一种特殊的变量 只用于表示类型而不是值
 function Generic<T>(anyParam: T): T {
   return anyParam;
 }
 
+interface Length {
+  length: number;
+}
+
+function identityLength<T extends Length>(arg: T): T {
+  console.log('arg.length:', arg.length); // 可以获取length属性
+  return arg;
+}
+
+console.log('-------------------identityLength------');
+console.log(identityLength([1, 2, 2, 34, 5]));
+
+interface Person {
+  name: string;
+  age: number;
+  location: string;
+}
+
+export declare type TypePerosnObj = { [x: string]: Person };
+
+const person1: TypePerosnObj = {
+  ll: {
+    name: '11',
+    age: 10,
+    location: 'henan'
+  }
+};
+console.log('person1:', person1);
+
+type K1 = keyof Person; // "name" | "age" | "location"
+type K2 = keyof Person[]; // number | "length" | "push" | "concat" | ...
+type K3 = keyof TypePerosnObj; // string | number
+type K4 = keyof { name: Person };
+console.log('--------K1, K2, K3 ------');
+
+enum Difficulty {
+  Easy,
+  Intermediate,
+  Hard
+}
+
+function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
+  return obj[key];
+}
+
+let tsInfo = {
+  name: 'Typescript',
+  supersetOf: 'Javascript',
+  difficulty: Difficulty.Intermediate
+};
+let difficulty: Difficulty = getProperty(tsInfo, 'difficulty'); // OK
+let supersetOf: string = getProperty(tsInfo, 'name'); // Error
 // 完整写法
 // Generic<string>(anyParam: "小白");    // 结果是  => "小白"
 // // 推理性写法

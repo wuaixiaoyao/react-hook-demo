@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { StoreContext } from 'redux-react-hook';
 import { makeStore } from './store/store';
-const store = makeStore();
-
-import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import './index.css';
+
+const store = makeStore();
 
 ReactDOM.render(
   <StoreContext.Provider value={store}>

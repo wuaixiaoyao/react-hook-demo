@@ -6,6 +6,9 @@
 
 .nav-wrapper {
     height: 30px;
+    position: sticky;
+    top: 0;
+    z-index: 9999;
     ul {
         display: flex;
         list-style: none;
