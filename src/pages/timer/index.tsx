@@ -2,13 +2,13 @@ import React from 'react';
 import { useEffect, useCallback, useState, useRef, FC } from 'react';
 import { Button } from 'antd-mobile';
 import moment from 'moment';
-interface ApplicationsProps {}
+interface IApplicationsProps {}
 
 interface refCurrent {
   current?: number;
 }
 
-const Timer: FC<ApplicationsProps> = (props) => {
+const Timer: FC<IApplicationsProps> = (props) => {
   // 创建一个标识，通用容器
   const timer: refCurrent = useRef();
   const [nums, setNums] = useState(0);
@@ -41,6 +41,7 @@ const Timer: FC<ApplicationsProps> = (props) => {
     }, 1000);
   }, []);
 
+  // 清空
   const goClear = () => {
     clearInterval(timer.current);
   };

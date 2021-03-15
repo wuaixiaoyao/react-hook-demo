@@ -5,6 +5,7 @@ class ConsolePlugin {
   constructor(options) {
     this.options = options;
   }
+
   apply(compiler) {
     /**
      * Monitor file change 记录当前改动文件
@@ -32,6 +33,7 @@ class ConsolePlugin {
       console.log(chalk.yellow('编译用时：' + time + '秒'));
     });
   }
+
   beginCompile() {
     const lineSlog = slog.stdout;
     let text = '开始编译：';

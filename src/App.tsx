@@ -14,7 +14,7 @@ import Header from './components/header';
 const Toolbar = (props: any) => {
   return (
     <div className={stylesEmotion.themeButtonWrapper}>
-      <ThemedButton onClick={props.changeTheme}>修改主题色</ThemedButton>
+      <ThemedButton>修改主题色</ThemedButton>
     </div>
   );
 };
@@ -29,8 +29,8 @@ export default function App() {
 
   return (
     <div>
-      <ThemeContext.Provider value={theme}>
-        <Toolbar changeTheme={toggleTheme} />
+      <ThemeContext.Provider value={{ theme, toggleTheme }}>
+        <Toolbar />
         <div className={stylesEmotion.root}>
           <Router>
             <div>

@@ -33,14 +33,6 @@ export default function Index(props: any) {
   }, []);
 
   useEffect(() => {
-    console.log('每次渲染结束都会执行');
-  });
-
-  useEffect(() => {
-    console.log('只有在 count 变化后才会执行');
-  }, [count]);
-
-  useEffect(() => {
     const timer = setInterval(() => {
       setCount(count + 1);
       // console.log('bannerRef:', bannerRef);
@@ -48,6 +40,14 @@ export default function Index(props: any) {
     }, 1000);
     return clearInterval(timer);
   }, []);
+
+  useEffect(() => {
+    console.log('每次渲染结束都会执行');
+  });
+
+  useEffect(() => {
+    console.log('只有在 count 变化后才会执行');
+  }, [count]);
 
   const handleScroll = () => {
     console.log('----scoll----');

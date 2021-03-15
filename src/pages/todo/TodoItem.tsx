@@ -7,9 +7,10 @@ import { IState } from '../../store/store';
 export default function TodoItem({ index }: { index: number }) {
   const mapState = useCallback((state: IState) => state.todos[index], [index]);
   const todo = useMappedState(mapState);
+  const store = useMappedState((state) => state);
   const dispatch = useDispatch();
   const deleteTodo = useCallback(() => dispatch({ type: 'delete todo', index }), [index]);
-
+  console.log('store:' , store)
   return (
     <li className={styles.root}>
       <span>{todo}</span>

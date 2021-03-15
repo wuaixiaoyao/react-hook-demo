@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext } from 'react';
 
 export const themes = {
   light: {
@@ -11,6 +11,7 @@ export const themes = {
   }
 };
 
-export const ThemeContext = React.createContext(
-  themes.dark // 默认值
-);
+export const ThemeContext = createContext({
+  theme: themes.dark, // 默认值
+  toggleTheme: () => {}
+});

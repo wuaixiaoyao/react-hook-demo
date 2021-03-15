@@ -156,6 +156,11 @@ getPrice().then((data) => {
 });
 
 type years = number[];
+
+type getYear = (times: Number) => React.ReactNode;
+
+type yearType = typeof getYear;
+
 let yearsss: years = [4, 5, 6, 6];
 console.log(yearsss);
 
@@ -164,7 +169,7 @@ console.log(yearsss);
  */
 class Singleton {
   name: string;
-  // 只能类内部访问
+  // 只能类内部访问的静态属性
   private static instance: Singleton;
 
   constructor(name: string) {

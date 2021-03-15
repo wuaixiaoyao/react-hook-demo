@@ -6,9 +6,9 @@ import styles from './index.module.scss';
 declare type HeaderTypeProps = {};
 
 const Header: React.FC<HeaderTypeProps> = (props: HeaderTypeProps) => {
-  const themes = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
   return (
-    <nav className={styles['nav-wrapper']} style={{ backgroundColor: themes.background }}>
+    <nav className={styles['nav-wrapper']} style={{ backgroundColor: theme.background }}>
       <ul>
         <li>
           <Link to="/test/">测试</Link>
